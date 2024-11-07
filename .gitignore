@@ -23,3 +23,8 @@ go.work.sum
 
 # env file
 .env
+
+icons
+config.toml
+build
+*.syso
