@@ -37,6 +37,27 @@ FontSize = 64.0
 
 When changing the configuration file, click `Reload` from the system tray icon context menu to reload it and show the changes, no need to restart.
 
+## Building from source
+
+### Windows
+
+Youcan just `go build` to get the application, but ideally you want it to have an icon and not show a console window. For that, follow the steps below:
+
+1. Install Go and a C compiler toolchain (CGO is needed for systray)
+2. Install rsrc: `go install github.com/akavel/rsrc@latest`
+3. Generate `.syso` resource file: `rsrc -arch amd64 -ico tray\icon.ico`
+4. Build with GUI flags: `go build -ldflags="-H windowsgui"`
+
+This will get you the binary with an icon and it does not show a window on the taskbar when run.
+
+### Mac OSX
+
+*Coming Soon*
+
+### Linux
+
+*Coming Soon*
+
 ## Credits
 All graphic resources are free for personal use and are embedded with the binary when compiled:
 - **Font:** digital-7.mono by Sizenko Alexander - [Style-7](http://www.styleseven.com)
