@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"flag"
 
-	"github.com/getlantern/systray"
+	"fyne.io/systray"
 	"github.com/phrozen/digital-clock/tray"
 )
 

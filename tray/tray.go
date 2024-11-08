@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"log"
 
-	"github.com/getlantern/systray"
+	"fyne.io/systray"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/phrozen/digital-clock/clock"
 )
@@ -31,9 +31,8 @@ func (t *Tray) OnExit() {
 }
 
 func (t *Tray) OnReady() {
-	systray.SetTemplateIcon(icon, icon)
+	systray.SetIcon(icon)
 	systray.SetTooltip("Digital Clock")
-
 	mShow := systray.AddMenuItem("Hide", "Shows/Hides the digital clock")
 	mReload := systray.AddMenuItem("Reload", "Reloads and updates clock from config file")
 	systray.AddSeparator()
