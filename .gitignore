@@ -29,4 +29,5 @@ config.toml
 build
 *.syso
 .DS_Store
+tmp
 
