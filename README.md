@@ -67,14 +67,13 @@ For more information, refer to the official [hajimehoshi/ebiten documentation](h
 Install Go dependencies:
 
 ```bash
-go mod tidy
-go mod vendor
+go get ./...
 ```
 
 Build the binary:
 
 ```bash
-go build -o digital-clock
+go build
 ```
 
 ## Usage
