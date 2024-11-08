@@ -56,7 +56,30 @@ This will get you the binary with an icon and it does not show a window on the t
 
 ### Linux
 
-*Coming Soon*
+To build on Ubuntu/Linux, install the following dependencies for the `hajimehoshi/ebiten` package:
+
+```bash
+sudo apt install libc6-dev libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev libasound2-dev pkg-config
+```
+
+For more information, refer to the official [hajimehoshi/ebiten documentation](https://ebitengine.org/en/documents/install.html?os=linux).
+
+Install Go dependencies:
+
+```bash
+go mod tidy
+go mod vendor
+```
+
+Build the binary:
+
+```bash
+go build -o digital-clock
+```
+
+## Usage
+
+Simply run the binary to display the clock on your screen. The clock will remain on top of other windows and can be moved by dragging.
 
 ## Credits
 All graphic resources are free for personal use and are embedded with the binary when compiled:
