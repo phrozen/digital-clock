@@ -7,7 +7,7 @@ A cross platform digital clock widget overlay written in Go. It stays always on 
 
 It uses [ebiten](https://github.com/hajimehoshi/ebiten), a lightweight and portable Go library for real-time, high-performance 2D games, widgets and visualizations for showing the clock on screen. 
 
-It also uses [systray](https://github.com/getlantern/systray), a cross platform library for system tray written in Go, which is used to create the icon and menu.
+It also uses [systray](https://github.com/fyne-io/systray), a cross platform library for system tray apps written in Go, which is used to create the icon and menu.
 
 ## Configuration
 
