@@ -7,6 +7,7 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
+	"github.com/phrozen/digital-clock/clock/config"
 )
 
 //go:embed digital-7.mono.ttf
@@ -25,7 +26,7 @@ func init() {
 // Clock is a clock that draws the time in the given font.
 type Clock struct {
 	Draggable
-	Config   *Config
+	Config   *config.Config
 	width    int
 	height   int
 	format   string
@@ -33,12 +34,15 @@ type Clock struct {
 	drawOps  *text.DrawOptions
 	lastTime time.Time
 	redraw   bool
+	quit     int
 }
 
 // NewClock returns a new clock with the given configuration.
-func NewClock(configuration *Config) *Clock {
+func NewClock(configFilePath string) *Clock {
+	cfg := config.NewConfigFromFile(configFilePath)
+	cfg.WriteConfigToFile(configFilePath)
 	clk := &Clock{
-		Config: configuration,
+		Config: cfg,
 	}
 	clk.LoadConfig()
 	return clk
@@ -116,6 +120,14 @@ func (clk *Clock) ShouldRedraw(now time.Time) bool {
 
 // Update checks for ebiten events and updates the clock.
 func (clk *Clock) Update() error {
+	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonRight) {
+		if clk.quit > 60 {
+			return ebiten.Termination
+		}
+		clk.quit++
+	} else {
+		clk.quit = 0
+	}
 	// Ebiten automatically calls this function every frame
 	clk.Drag()
 	return nil
@@ -145,4 +157,21 @@ func (clk *Clock) Layout(outsideWidth, outsideHeight int) (int, int) {
 	clk.Draggable.CursorToWindowX = float64(outsideWidth) / float64(clk.width)
 	clk.Draggable.CursorToWindowY = float64(outsideHeight) / float64(clk.height)
 	return clk.width, clk.height
+}
+
+// Run ebiten app with configured clock.
+func (clk *Clock) Run() error {
+	ebiten.SetWindowSize(clk.Width(), clk.Height())
+	ebiten.SetWindowTitle("Digital Clock")
+	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeDisabled)
+	ebiten.SetWindowFloating(true)
+	ebiten.SetWindowDecorated(false)
+	ebiten.SetScreenClearedEveryFrame(false)
+	op := &ebiten.RunGameOptions{}
+	op.ScreenTransparent = true
+	op.SkipTaskbar = true
+	if err := ebiten.RunGameWithOptions(clk, op); err != nil {
+		return err
+	}
+	return nil
 }

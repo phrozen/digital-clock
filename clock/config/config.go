@@ -1,4 +1,4 @@
-package clock
+package config
 
 import (
 	"image/color"
